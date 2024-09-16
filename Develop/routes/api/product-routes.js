@@ -24,11 +24,12 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
 
   try {
-    const oneProduct = await Product.findbyPk(req.params.id, {
+    const oneProduct = await Product.findByPk(req.params.id, {
       include: [{model: Category}, {model: Tag, through: ProductTag}],
     });
     res.status(200).json(oneProduct);
   } catch (err) {
+    console.error('Error fetching product:', err);
     res.status(500).json(err);
   }
 });
